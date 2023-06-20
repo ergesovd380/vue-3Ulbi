@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <input 
-      :type="type"
-      :placeholder="placeholder"
-      class="form-control my-2"
-      :value="modelValue"
-      @input="updateValue"
-    >
-  </div>
+  <input 
+    :type="type"
+    :placeholder="placeholder"
+    class="form-control"
+    :value="modelValue"
+    @input="updateValue"
+  >
 </template>
 
 <script>

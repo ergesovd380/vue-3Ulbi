@@ -1,12 +1,16 @@
 <template>
   <form @submit.prevent.stop>
-    <div class="form-group">
+    <h1>Add post</h1>
+    <div>
       <UInput
+        v-focus
         type="text" 
         placeholder="Name"
         v-model="post.title"
+        class="my-2"
       />
       <UInput
+        class="my-2"
         type="text"
         placeholder="Description"
         v-model="post.body"
@@ -17,7 +21,7 @@
         class="btn btn-primary"
         @click="addPost"
         :disabled="post.title.length < 3 | post.body.length < 3"
-      >Add post</UButton>
+      >Добавить пост</UButton>
     </div>
   </form>
 </template>
@@ -41,7 +45,7 @@
           body: ''
         }
       }
-    }
+    },
   }
 </script>
 
