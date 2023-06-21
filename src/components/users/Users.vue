@@ -15,7 +15,7 @@
     </Navbar>
 <!--Content-->
     <div class="container">
-
+      <h1 class="text-light text-center">Option Api {{ $store.state.limit }}</h1>
 <!--No posts-->
       <div v-if="noPost">
         <h1 class="text-center text-danger mt-5">

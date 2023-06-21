@@ -2,26 +2,27 @@
   <transition-group
     name="list"
   >
-    <h1 class="text-light">Посты</h1>
+    <h1 class="text-light">Posts</h1>
     <div 
       class="p-3 my-3 border border-2 border-primary text-light"
       v-for="post in posts"
       :key="post.id"
     >
-      <div class="my-2"><strong>Имя: </strong>{{ post.title }}</div>
-      <div class="my-2"><strong>Описание: </strong>{{ post.body }}</div>
+      <div class="my-2"><strong>User id: </strong>{{ post.userId }}</div>
+      <div class="my-2"><strong>Name: </strong>{{ post.title }}</div>
+      <div class="my-2"><strong>Description: </strong>{{ post.body }}</div>
   
       <div class="text-end">
+        <UButton
+          @click="deletePost(post)"
+        >
+          Delete
+        </UButton>
         <UButton
           @click="openId(post)"
           class="mx-2"
         >
-          Открыть
-        </UButton>
-        <UButton
-          @click="deletePost(post)"
-        >
-          Удалить
+          Open
         </UButton>
       </div>
     </div>

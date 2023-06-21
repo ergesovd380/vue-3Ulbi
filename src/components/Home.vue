@@ -2,21 +2,18 @@
   <div class="container">
     <div class="text-light">
       <h1>Главная страница</h1>
-      <h3>Like: {{ like }}</h3>
-      <UButton @click="addLike">Like</UButton>
+      <h3>Limit: {{ limit }}</h3>
     </div>
   </div>
 </template>
 
 <script>
+import {mapState} from 'vuex'
   export default {
     computed: {
-      like() {
-        return this.$store.getters.like;
-      },
-      addLike() {
-        return this.$store.dispatch('getLike');
-      }
+      ...mapState({
+        limit: state => state.post.limit
+      })
     }
   }
 </script>

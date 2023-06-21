@@ -12,10 +12,16 @@
               <router-link class="nav-link" active-class="active" to="/about">О нас</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" active-class="active" to="/users">Пользователи</router-link>
+              <router-link class="nav-link" active-class="active" to="/users">Option API</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" active-class="active" to="/store">Store</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link" active-class="active" to="/composition">Composition API</router-link>
             </li>
           </ul>
-          <slot v-if="$route.path === '/users'"></slot>
+          <slot v-if="$route.path === '/users' || '/store' || '/composition'"></slot>
         </div>
       </div>
     </nav>

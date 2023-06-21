@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export default postStore = {
+export default {
   state: () => ({
     posts: [],
     options: [
@@ -12,8 +12,8 @@ export default postStore = {
     page: 1,
     limit: 10,
     totalPage: 0,
-    loading: false,
-    noPost: false
+    allPosted: false,
+    noPost: false,
   }),
 
   getters: {
@@ -22,29 +22,8 @@ export default postStore = {
         return post1[state.selectedSort]?.localeCompare(post2[state.selectedSort]);
       })
     },
-    sortedAndSearchPosts(getters, state) {
+    sortedAndSearchPosts(state, getters) {
       return getters.sortedPosts.filter(post => post.title.toLowerCase().includes(state.searchPost.toLowerCase()) | post.body.toLowerCase().includes(state.searchPost.toLowerCase()));
-    },
-    options(state) {
-      return state.options;
-    },
-    selectedSort(state) {
-      return state.selectedSort;
-    },
-    searchPost(state) {
-      return state.searchPost;
-    },
-    page(state) {
-      return state.page;
-    },
-    totalPage(state) {
-      return state.totalPage;
-    },
-    loading(state) {
-      return state.loading;
-    },
-    noPost(state) {
-      return state.noPost;
     }
   },
 
@@ -52,36 +31,32 @@ export default postStore = {
     getPosts(state, posts) {
       state.posts = posts;
     },
-    getOptions(state, options) {
-      state.options = options;
-    },
-    getSelectedSort(state, selectedSort) {
-      state.selectedSort = selectedSort;
-    },
-    getSearchPost(state, searchPost) {
-      state.searchPost = searchPost;
-    },
     getPage(state, page) {
       state.page = page;
-    },
-    getLimit(state, limit) {
-      state.limit = limit;
     },
     getTotalPage(state, totalPage) {
       state.totalPage = totalPage;
     },
-    getLoading(state, loading) {
-      state.loading = loading;
+    getAllPosted(state, allPosted) {
+      state.allPosted = allPosted;
     },
     getNoPost(state, noPost) {
       state.noPost = noPost;
+    },
+    getSearchPost(state, searchPost) {
+      state.searchPost = searchPost;
+    },
+    getSelectedSort(state, selectedSort) {
+      state.selectedSort = selectedSort;
+    },
+    getCounter(state, payload) {
+      state.counter = payload
     }
   },
 
   actions: {
     async getPosts({state, commit}) {
       try {
-        commit('getLoading', true);
         const newPosts = await axios.get('https://jsonplaceholder.typicode.com/posts', {
           params: {
             _page: state.page,
@@ -92,14 +67,11 @@ export default postStore = {
         commit('getPosts', newPosts.data);
       } catch (e) {
         commit('getNoPost', true);
-        commit('getLoading', false);
-      } finally {
-        commit('getLoading', false);
       }
     },
     async observerFunc({state, commit}) {
-      commit('getPage', +1);
       try {
+        commit('getPage', state.page + 1);
         const newPosts = await axios.get('https://jsonplaceholder.typicode.com/posts', {
           params: {
             _page: state.page,
@@ -112,5 +84,7 @@ export default postStore = {
         console.log('Error')
       }
     }
-  }
+  },
+
+  namespaced: true
 }

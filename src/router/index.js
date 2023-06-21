@@ -21,7 +21,17 @@ const routes = [
     path: '/users/:id',
     name: 'user',
     component: () => import('@/components/users/id.vue')
-  }
+  },
+  {
+    path: '/store',
+    name: 'users-store',
+    component: () => import('@/components/users/UsersWithStore.vue')
+  },
+  {
+    path: '/composition',
+    name: 'users-composition',
+    component: () => import('@/components/users/UsersWithComposition.vue')
+  },
 ]
 
 const router = createRouter({
