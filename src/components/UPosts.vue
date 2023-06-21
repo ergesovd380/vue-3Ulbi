@@ -2,7 +2,7 @@
   <transition-group
     name="list"
   >
-    <h1 class="text-light">Posts</h1>
+    <h1 class="text-light">Посты</h1>
     <div 
       class="p-3 my-3 border border-2 border-primary text-light"
       v-for="post in posts"
@@ -14,15 +14,16 @@
   
       <div class="text-end">
         <UButton
-          @click="deletePost(post)"
-        >
-          Delete
-        </UButton>
-        <UButton
+          v-if="$route.path === '/users'"
           @click="openId(post)"
           class="mx-2"
         >
-          Open
+          Открыть
+        </UButton>
+        <UButton
+          @click="deletePost(post)"
+        >
+          Удалить
         </UButton>
       </div>
     </div>

@@ -15,7 +15,7 @@
     </Navbar>
 <!--Content-->
     <div class="container">
-      <h1 class="text-light text-center">With VueX Composition Api</h1>
+      <h1 class="text-light text-center">Composition Api Hooks</h1>
 <!--No posts-->
       <div v-if="state.noPost">
         <h1 class="text-center text-danger mt-5">
@@ -85,14 +85,14 @@
 </template>
 
 <script setup>
-import { useStore } from 'vuex';
-import {ref, computed, reactive, onMounted, watch} from 'vue';
+import {ref} from 'vue';
+import {userPosts} from '@/hooks/userPosts'
+
+// Hooks
+const {searchValue, sort, search, state, getters, observerFunc} = userPosts()
 
 const showDialog = ref(false);
-const searchValue = ref(false);
-const sort = ref('');
-const search = ref('');
-
+ 
 // Emit methods
 const addPost = (post) => {
   state.posts.push(post);
@@ -104,44 +104,6 @@ const deletePost = (post) => {
 const closeDialog = (closeDialog) => {
   showDialog.value = closeDialog;
 };
-
-// VueX
-const store = useStore()
-const state = reactive({
-  posts: computed(() => store.state.post.posts),
-  options: computed(() => store.state.post.options),
-  allPosted: computed(() => store.state.post.liallPostedmit),
-  noPost: computed(() => store.state.post.noPost),
-  totalPage: computed(() => store.state.post.totalPage)
-});
-const page = computed(() => store.state.post.page)
-
-const getters = reactive({
-  sortedAndSearchPosts: computed(() => store.getters['post/sortedAndSearchPosts'])
-});
-
-//actions
-const getPosts = () => store.dispatch('post/getPosts');
-const observerFunc = () => store.dispatch('post/observerFunc');
-
-onMounted(getPosts)
-
-watch(search, (e) => {
-  store.commit('post/getSearchPost', e)
-  if(e.length > 0) {
-    searchValue.value = true
-  } else {
-    searchValue.value = false
-  }
-})
-watch(sort, (s) => {
-  store.commit('post/getSelectedSort', s)
-})
-watch(page, (p) => {
-  if(p === state.totalPage) {
-    searchValue.value = true;
-  }
-})
 
 </script>
 

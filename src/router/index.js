@@ -20,6 +20,7 @@ const routes = [
   {
     path: '/users/:id',
     name: 'user',
+    props: true,
     component: () => import('@/components/users/id.vue')
   },
   {
@@ -31,6 +32,11 @@ const routes = [
     path: '/composition',
     name: 'users-composition',
     component: () => import('@/components/users/UsersWithComposition.vue')
+  },
+  {
+    path: '/hooks',
+    name: 'users-hooks',
+    component: () => import('@/components/users/UsersWithHooks.vue')
   },
 ]
 

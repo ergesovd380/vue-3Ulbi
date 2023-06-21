@@ -1,8 +1,10 @@
-import { createStore } from 'vuex'
-import postStore from '@/store/postStore'
+import { createStore } from 'vuex';
+import postStore from '@/store/postStore';
+import userId from '@/store/userId';
 
 export default createStore({
   modules: {
-    post: postStore
+    post: postStore,
+    user: userId
   }
 })

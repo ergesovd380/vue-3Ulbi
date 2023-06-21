@@ -12,42 +12,35 @@
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
-    <div v-else>
-      <div class="my-2"><strong>User id: </strong>{{ user.userId }}</div>
+    <div v-else v-for="user in userData">
+      <div class="my-2"><strong>User id: </strong>{{ user.id }}</div>
       <div class="my-2"><strong>Name: </strong>{{ user.title }}</div>
       <div class="my-2"><strong>Description: </strong>{{ user.body }}</div>
-      <button class="btn btn-primary" @click="getPosts">Get Post</button>
     </div>
   </div>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        loading: false,
-        user: []
-      }
-    },
-    methods: {
-      async getPosts() {
-        try {
-          this.loading = true;
-          console.log(this.loading);
-          const newPost = await axios.get('https://jsonplaceholder.typicode.com/posts?id=1')
-          this.user = newPost.data;
-          console.log(this.user);
-        } catch (e) {
-          this.loading = false;
-        } finally {
-          this.loading = false
-          console.log(this.loading);
-        }
-      },
-    }
+import { mapGetters, mapMutations, mapActions } from 'vuex'
+export default {
+  props: ['id'],
+  methods:{
+    ...mapActions({
+      getUser: 'user/getUser'
+    }),
+    ...mapMutations({
+      getId: 'user/getId'
+    })
+  },
+  computed: {
+    ...mapGetters({
+      loading: 'user/loading',
+      userData: 'user/user'
+    }),
+  },
+  mounted() {
+    this.getId(this.id)
+    this.getUser()
   }
+}
 </script>
-
-<style scoped>
-/*Style code*/
-</style>
