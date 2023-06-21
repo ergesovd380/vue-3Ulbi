@@ -15,7 +15,7 @@
     </Navbar>
 <!--Content-->
     <div class="container">
-      <h1 class="text-light text-center">Option Api {{ $store.state.limit }}</h1>
+      <h1 class="text-light text-center">Option Api</h1>
 <!--No posts-->
       <div v-if="noPost">
         <h1 class="text-center text-danger mt-5">
@@ -83,31 +83,26 @@
           class="text-center py-3" 
           v-if="!searchValue"
         >
-          <div v-if="allPosted">
-            <h1 class="text-light">Все посты загружены</h1>
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
           </div>
-          <div v-else>
-            <div class="spinner-border text-primary" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="spinner-border text-secondary" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="spinner-border text-success" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="spinner-border text-danger" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="spinner-border text-warning" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="spinner-border text-info" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="spinner-border text-light" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
+          <div class="spinner-border text-secondary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-border text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-border text-danger" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-border text-warning" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-border text-info" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-border text-light" role="status">
+            <span class="visually-hidden">Loading...</span>
           </div>
         </div>
       </div>
@@ -177,8 +172,8 @@ export default {
     },
     async observerFunc() {
       if(!this.searchValue) {
-        this.page++
         try {
+          this.page++
           const newPosts = await axios.get('https://jsonplaceholder.typicode.com/posts', {
             params: {
               _page: this.page,
@@ -222,6 +217,11 @@ export default {
         console.log(this.searchValue)
       } else {
         this.searchValue = false;
+      }
+    },
+    page(e) {
+      if(e === this.totalPage) {
+        this.searchValue = true;
       }
     }
   }

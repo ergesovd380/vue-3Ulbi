@@ -6,4 +6,3 @@ export default createStore({
     post: postStore
   }
 })
-
